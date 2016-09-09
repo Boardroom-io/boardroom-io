@@ -4,7 +4,8 @@
   "description": "A whiteboard chatroom",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "front-end-build": "node_modules/.bin/gulp"
   },
   "author": "Daniel King, Will Barnes, Bryan Yee, Jason Rubalcaba",
   "license": "ISC",
@@ -14,15 +15,17 @@
     "babel-preset-react": "^6.11.1",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
-    "gulp": "^3.9.1",
-    "react": "^15.3.1",
-    "react-dom": "^15.3.1",
-    "watchify": "^3.7.0",
     "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-notify": "^2.2.0",
     "http": "0.0.0",
     "jquery": "^3.1.0",
     "path": "^0.12.7",
-    "socket.io": "^1.4.8"
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "socket.io": "^1.4.8",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.10.2"
