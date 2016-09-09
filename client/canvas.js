@@ -1,5 +1,6 @@
-$(document).ready(() => {
 
+
+$(document).ready(() => {
   const socket = require('./socket');
 
   function addEventListenersToCanvas() {
@@ -74,7 +75,6 @@ $(document).ready(() => {
       mouseDown = false;
       x = null;
       y = null;
-      locations = [];
     }
 
     canvas.addEventListener('mousedown', startDraw, false);

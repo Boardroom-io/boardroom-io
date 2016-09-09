@@ -53,7 +53,6 @@ $(document).ready(() => {
         context.lineWidth = '12';
         context.moveTo(x, y);
         context.lineTo(curX, curY);
-        context.closePath();
         context.stroke();
       }
       x = curX;
