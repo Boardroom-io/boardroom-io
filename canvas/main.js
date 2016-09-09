@@ -2,9 +2,6 @@ var mouseDown = false;
 
 $(document).ready(() => {
 
-
-
-
   function addEventListenersToCanvas() {
     let x;
     let y;
@@ -50,14 +47,4 @@ $(document).ready(() => {
   }
 
   addEventListenersToCanvas();
-
 });
-
-
-
-
-
-
-
-
-
