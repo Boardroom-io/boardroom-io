@@ -15,6 +15,9 @@ io.on('connection', socket => {
   socket.on('draw', coords => {
     socket.broadcast.emit('other client draw', coords);
   });
+  socket.on('erase', coords => {
+    socket.broadcast.emit('other client erase', coords);
+  });
 });
 
 http.listen(3000, () => console.log('listening on *:3000'));

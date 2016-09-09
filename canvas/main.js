@@ -15,32 +15,54 @@ $(document).ready(() => {
     let prevX;
     let prevY;
     let mouseDown = false;
-    let locations = [];
+    let color = 'black';
+    let width = '5';
+    let erase = false;
+    let drawOption;
 
     function startDraw(e) {
       mouseDown = true;
       prevX = e.pageX - rect.left;
       prevY = e.pageY - rect.top;
+      drawOption = $('input[name=drawOption]:checked').val();
+      if (drawOption === 'Write') {
+        erase = false;
+      } else if (drawOption === 'Erase') {
+        erase = true;
+      }
     }
 
     function newDraw(e) {
       if (mouseDown) {
         x = e.pageX - rect.left;
         y = e.pageY - rect.top;
-
-        drawOnCanvas(prevX, prevY, x, y);
-        socket.emit('draw', {prevX, prevY, x, y});
+        color = $('#color').val();
+        //context.strokeStyle = color;
+        width = $('#width').val();
+        //context.lineWidth = width;
+        if (erase) {
+          eraser(x, y, width);
+          socket.emit('erase', { x, y });
+        } else {
+          drawOnCanvas(prevX, prevY, x, y, width, color);
+          socket.emit('draw', { prevX, prevY, x, y, width, color });
+        }
         prevX = x;
         prevY = y;
-
       }
     }
 
-    function drawOnCanvas(prevX, prevY, x, y) {
+    function drawOnCanvas(prevX, prevY, x, y, w, c) {
+      context.strokeStyle = c;
+      context.lineWidth = w;
       context.beginPath();
       context.moveTo(prevX, prevY);
       context.lineTo(x, y);
       context.stroke();
+    }
+
+    function eraser(x, y) {
+      context.clearRect(x, y, 20, 20);
     }
 
     function endDraw(e) {
@@ -62,7 +84,10 @@ $(document).ready(() => {
     // canvas.addEventListener('touchleave', endDraw, true);
 
     socket.on('other client draw', coords => {
-      drawOnCanvas(coords.prevX, coords.prevY, coords.x, coords.y);
+      drawOnCanvas(coords.prevX, coords.prevY, coords.x, coords.y, coords.width, coords.color);
+    });
+    socket.on('other client erase', coords => {
+      eraser(coords.x, coords.y);
     });
   }
 
