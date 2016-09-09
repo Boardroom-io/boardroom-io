@@ -37,9 +37,7 @@ $(document).ready(() => {
         x = e.pageX - rect.left;
         y = e.pageY - rect.top;
         color = $('#color').val();
-        //context.strokeStyle = color;
         width = $('#width').val();
-        //context.lineWidth = width;
         if (erase) {
           eraser(x, y, width);
           socket.emit('erase', { x, y });
@@ -64,6 +62,13 @@ $(document).ready(() => {
     function eraser(x, y) {
       context.clearRect(x, y, 20, 20);
     }
+    function clearCanvas() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    $('#clear-canvas').on('click', () => {
+      clearCanvas();
+      socket.emit('clear');
+    });
 
     function endDraw(e) {
       mouseDown = false;
@@ -88,6 +93,9 @@ $(document).ready(() => {
     });
     socket.on('other client erase', coords => {
       eraser(coords.x, coords.y);
+    });
+    socket.on('clear all canvas', () => {
+      clearCanvas();
     });
   }
 

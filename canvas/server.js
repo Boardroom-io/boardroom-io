@@ -18,6 +18,9 @@ io.on('connection', socket => {
   socket.on('erase', coords => {
     socket.broadcast.emit('other client erase', coords);
   });
+  socket.on('clear', () => {
+    socket.broadcast.emit('clear all canvas');
+  });
 });
 
 http.listen(3000, () => console.log('listening on *:3000'));
