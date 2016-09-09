@@ -10,11 +10,11 @@ function handleErrors(){
     message: "<% error.message %>"
   }).apply(this, arguments);
   this.emit('end');
-} 
+}
 
 gulp.task('build-client', () =>{
   const bundler = watchify(browserify({
-    entries: ["./client/app.jsx"],
+    entries: ["./client/app.jsx", "./client/canvas.js"],
     debug: true,
     transform: [['babelify', {presets: ['es2015','react']}]]
   }))
@@ -37,4 +37,3 @@ gulp.task('build-client', () =>{
 })
 
 gulp.task('default', ['build-client']);
-

@@ -7,13 +7,13 @@ const io = require('socket.io')(http);
 app.use(express.static(path.join(__dirname, '..')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 io.on('connection', socket => {
   console.log('a user connected');
-  socket.on('button clicked', () => {
-    socket.broadcast.emit('other client clicked');
+  socket.on('draw', coords => {
+    socket.broadcast.emit('other client draw', coords);
   });
 });
 
