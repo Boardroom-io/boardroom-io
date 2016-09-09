@@ -4,7 +4,34 @@
     <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
   <body>
-    <div id="chat-app"></div>
+    <div id="container">
+      <div id="left">
+        <div id="chat-app"></div>
+        <div id="video-chat"></div>
+      </div>
+
+      <div id="right">
+        <canvas id="drawMe" width="600" height="700" style="border:2px solid black"></canvas>
+        <select id='color'>
+          <option id='black' value='black'>Black</option>
+          <option id='red' value='red'>Red</option>
+          <option id='blue' value='blue'>Blue</option>
+          <option id='green' value='green'>Green</option>
+        </select>
+        <select id='width'>
+          <option id='small' value='5'>Small</option>
+          <option id='medium' value='10'>Medium</option>
+          <option id='large' value='15'>Large</option>
+        </select>
+        <input id='write' type='radio' name='drawOption' value='Write' checked="checked" />
+        <label for='write'>Write</label>
+        <input id='erase' type='radio' name='drawOption' value='Erase'/>
+        <label for='erase'>Erase</label>
+        <button id='clear-canvas'>Clear the canvas!</button>
+      </div>
+    </div>
+
+    <script src='https://code.jquery.com/jquery-2.2.0.min.js'></script>
     <script src='./build/bundle.js'></script>
   </body>
 </html>
