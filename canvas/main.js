@@ -1,49 +1,59 @@
-var mouseDown = false;
-
 $(document).ready(() => {
 
   function addEventListenersToCanvas() {
+    const canvas = document.getElementById('drawMe');
+    const rect = canvas.getBoundingClientRect();
+    const context = canvas.getContext('2d');
+    context.strokeStyle = 'black';
+    context.lineWidth = '5';
+    context.lineJoin = 'round';
     let x;
     let y;
-    const canvas = document.getElementById('drawMe');
-    let rect;
-    const context = canvas.getContext('2d');
+    let mouseDown = false;
+    let locations = [];
 
-    canvas.addEventListener('mousedown', (e) => {
-      rect = canvas.getBoundingClientRect();
+    function startDraw(e) {
+      e.preventDefault();
       mouseDown = true;
-      draw(e.pageX - rect.left, e.pageY - rect.top, false);
-    });
-
-    canvas.addEventListener('mousemove', (e) => {
-      rect = canvas.getBoundingClientRect();
-      if (mouseDown) {
-        console.log('moving');
-        draw(e.pageX - rect.left, e.pageY - rect.top, true);
-      }
-    });
-
-    canvas.addEventListener('mouseup', () => {
-      mouseDown = false;
-    });
-
-    canvas.addEventListener('mouseleave', () => {
-      mouseDown = false;
-    });
-
-    function draw(curX, curY, bool) {
-      if (bool) {
-        context.beginPath();
-        context.strokeStyle = 'black';
-        context.lineWidth = '12';
-        context.moveTo(x, y);
-        context.lineTo(curX, curY);
-        context.closePath();
-        context.stroke();
-      }
-      x = curX;
-      y = curY;
     }
+
+    function newDraw(e) {
+      e.preventDefault();
+      if (mouseDown) {
+        x = e.pageX - rect.left;
+        y = e.pageY - rect.top;
+
+        locations.push({ x, y });
+
+        drawOnCanvas(locations);
+      }
+    }
+
+    function drawOnCanvas(locationsArr) {
+      context.beginPath();
+      context.moveTo(locationsArr[0].x, locationsArr[0].y);
+      for (let i = 1; i < locationsArr.length; i++) {
+        context.lineTo(locationsArr[i].x, locationsArr[i].y);
+      }
+      context.stroke();
+    }
+
+    function endDraw(e) {
+      e.preventDefault();
+      mouseDown = false;
+      x = null;
+      y = null;
+      locations = [];
+    }
+
+    canvas.addEventListener('mousedown', startDraw, false);
+    canvas.addEventListener('mousemove', newDraw, false);
+    canvas.addEventListener('mouseup', endDraw, false);
+    canvas.addEventListener('mouseleave', endDraw, false);
+    canvas.addEventListener('touchstart', startDraw, false);
+    canvas.addEventListener('touchmove', newDraw, false);
+    canvas.addEventListener('touchend', endDraw, false);
+    canvas.addEventListener('touchleave', endDraw, false);
   }
 
   addEventListenersToCanvas();
