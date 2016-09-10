@@ -10,6 +10,13 @@ const p2p = require('socket.io-p2p-server').Server;
 // behind the scenes.
 io.use(p2p);
 
+app.use((req, res, next) => {
+  if (req.method !== 'GET') {
+    return res.sendStatus(405);
+  }
+  next();
+});
+
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.get('/', (req, res) => {

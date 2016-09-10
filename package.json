@@ -4,7 +4,7 @@
   "description": "A whiteboard chatroom",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "export NODE_ENV=test && mocha --timeout 20000 tests/",
     "front-end-build": "node_modules/.bin/gulp"
   },
   "author": "Daniel King, Will Barnes, Bryan Yee, Jason Rubalcaba",
@@ -32,6 +32,9 @@
     "watchify": "^3.7.0"
   },
   "devDependencies": {
-    "nodemon": "^1.10.2"
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "nodemon": "^1.10.2",
+    "supertest": "^2.0.0"
   }
 }
