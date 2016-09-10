@@ -1,4 +1,17 @@
-import socket from './socket';
+import {socket, p2p} from './socket';
+// The p2p (peer-to-peer) connection automatically
+// sends messages to all other clients connected to this
+// one. So, if I say:
+//
+// p2p.emit('hello', data)
+//
+// then all of the other clients connected to this one will
+// receive the 'hello' event, and they could respond to it
+// by writing an event handler like:
+//
+// p2p.on('hello', data => {
+//    do something with the data
+// })
 
 $(document).ready(() => {
 
@@ -66,10 +79,10 @@ $(document).ready(() => {
       width = $('#width').val();
       if (erase) {
         eraser(x, y, width);
-        socket.emit('erase', { x, y });
+        p2p.emit('erase', { x, y });
       } else {
         drawOnCanvas(prevX, prevY, x, y, width, color);
-        socket.emit('draw', { prevX, prevY, x, y, width, color });
+        p2p.emit('draw', { prevX, prevY, x, y, width, color });
       }
       prevX = x;
       prevY = y;
@@ -91,7 +104,7 @@ $(document).ready(() => {
         socket.emit('erase', { x, y });
       } else {
         drawOnCanvas(prevX, prevY, x, y, width, color);
-        socket.emit('draw', { prevX, prevY, x, y, width, color });
+        p2p.emit('draw', { prevX, prevY, x, y, width, color });
       }
       prevX = x;
       prevY = y;
@@ -130,7 +143,7 @@ $(document).ready(() => {
 
   $('#clear-canvas').on('click', () => {
     clearCanvas();
-    socket.emit('clear');
+    p2p.emit('clear');
   });
 
   /**
@@ -156,15 +169,15 @@ $(document).ready(() => {
 
   /**
    * Establish event listeners for receiving canvas data from other clients
-   * through the socket connection
+   * through the peer to peer connection
    */
-  socket.on('other client draw', coords => {
+  p2p.on('draw', coords => {
     drawOnCanvas(coords.prevX, coords.prevY, coords.x, coords.y, coords.width, coords.color);
   });
-  socket.on('other client erase', coords => {
+  p2p.on('erase', coords => {
     eraser(coords.x, coords.y);
   });
-  socket.on('clear all canvas', () => {
+  p2p.on('clear', () => {
     clearCanvas();
   });
 });
