@@ -1,21 +1,26 @@
 <html>
+  <head>
+    <title>Boardroom Whiteboard</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+  </head>
+  <body>
+    <div id="container">
+      <div id="left">
+        <div id="chat-app"><!-- Populated by React, see app.jsx --></div>
+        <div id="video-chat">
+          <video id="localVideo">
+            <!-- Populated by SimpleWebRTC, see webrtc.js -->
+          </video>
+          <div id="remoteVideos">
+            <!-- Populated by SimpleWebRTC, see webrtc.js -->
+          </div>
+        </div>
+      </div>
 
-<head>
-  <title>Boardroom Whiteboard</title>
-  <link rel="stylesheet" type="text/css" href="./style.css">
-</head>
-
-<body>
-  <div id="container">
-    <div id="left">
-      <div id="chat-app"></div>
-      <div id="video-chat"></div>
-    </div>
-
-    <div id="right">
-      <canvas id="drawMe" width="600" height="600" style="border:1px solid black"></canvas>
-      <div id='options'>
-        <select id='color' class='canvas-options'>
+      <div id="right">
+        <!-- Drawable canvas, see canvas.js -->
+        <canvas id="drawMe" width="600" height="600" style="border:1px solid black"></canvas>
+        <select id='color'>
           <option id='black' value='black'>Black</option>
           <option id='red' value='red'>Red</option>
           <option id='blue' value='blue'>Blue</option>
@@ -38,7 +43,7 @@
         <label for='write' id='write-label'>Write</label>
         </div>
 
-        
+
 
         <div id='clear-div'>
         <button id='clear-canvas' class='canvas-options'>Clear the canvas!</button>
