@@ -59,11 +59,35 @@ body {
 
 #left {
   width: 44%;
+
   display: inline-block;
   margin: 20px 2.5% 0;
   vertical-align: top;
   background-color: #EEE;
+  border-radius: 3%;
 }
+
+#video-chat {
+  width: 500px;
+  height: 500px;
+  margin: 10px auto 10px;
+  border: 1px solid #444;
+}
+
+video {
+  object-fit: fill;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#chat-app {
+  width: 500px;
+  height: 165px;
+  margin: 0 auto;
+}
+
+
+
 
 #right {
   width: 44%;
@@ -111,8 +135,6 @@ select {
   top: -3000;
   left: -3000;
 }
-
-
 
 #clear-div {
   width: 100%;
