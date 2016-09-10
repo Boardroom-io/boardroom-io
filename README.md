@@ -26,6 +26,7 @@ to test Boardroom-io from a local http server, it is necessary to
 deactivate some of the security features of Google Chrome (see
   [here](https://sites.google.com/a/chromium.org/dev/Home/chromium-security/deprecating-powerful-features-on-insecure-origins) for more details).
 To deactivate the security features on Google Chrome on Mac OSX, do the following:
+
 1. Record the private IP address (on the local network) of the
 computer that is running the server.
 2. From a different computer connected to the same network, run
