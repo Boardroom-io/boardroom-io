@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MessageForm from './components/message_form.jsx'
 import Message from './components/message.jsx'
 import MessageContainer from './components/message_container.jsx'
-import socket from './socket.js'
+import {socket, p2p} from './socket.js'
 
 // Top level React component for the text-chat window
 class App extends React.Component {
@@ -12,7 +12,7 @@ class App extends React.Component {
     this.state = {
       messages:[]
     }
-		socket.on('new message text', (newMessage) =>{
+		p2p.on('message', (newMessage) =>{
 			this.handleNewMessage(newMessage);
 		})
   }
@@ -21,7 +21,7 @@ class App extends React.Component {
 		messages.push(message);
 		this.setState({messages});
 		console.log("handleMessageSubmit", message);
-		socket.emit('send:message', message);
+		p2p.emit('message', message);
 	}
 
 	handleNewMessage(newMessage) {

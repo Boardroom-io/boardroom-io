@@ -3,28 +3,17 @@ const path = require('path');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const p2p = require('socket.io-p2p-server').Server;
+
+// This server will be used as a signaling server to establish peer to
+// peer connections between clients. This happens automatically,
+// behind the scenes.
+io.use(p2p);
 
 app.use(express.static(path.join(__dirname, '../client')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
-});
-
-io.on('connection', socket => {
-  console.log('a user connected');
-  socket.on('draw', coords => {
-    socket.broadcast.emit('other client draw', coords);
-  });
-  socket.on('erase', coords => {
-    socket.broadcast.emit('other client erase', coords);
-  });
-  socket.on('clear', () => {
-    socket.broadcast.emit('clear all canvas');
-  });
-  socket.on('send:message', (message) => {
-    socket.broadcast.emit('new message text', message);
-    console.log("message sent")
-  });
 });
 
 http.listen(3000, () => console.log('listening on *:3000'));
