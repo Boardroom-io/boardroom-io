@@ -7,7 +7,7 @@ const notify = require('gulp-notify');
 function handleErrors(){
   notify.onError({
     title: "compile error",
-    message: "<% error.message %>"
+    message: "<%= error.message %>"
   }).apply(this, arguments);
   this.emit('end');
 }
