@@ -26,20 +26,34 @@
           <option id='blue' value='blue'>Blue</option>
           <option id='green' value='green'>Green</option>
         </select>
-        <select id='width'>
+        <select id='width' class='canvas-options'>
           <option id='small' value='5'>Small</option>
           <option id='medium' value='10'>Medium</option>
           <option id='large' value='15'>Large</option>
         </select>
+
+        <div class='radio' id='erase-div'>
+        <input id='erase' type='radio' name='drawOption' value='Erase' />
+        <label for='erase' id='erase-label'>Erase</label>
+        </div>
+
+
+        <div class='radio'>
         <input id='write' type='radio' name='drawOption' value='Write' checked="checked" />
-        <label for='write'>Write</label>
-        <input id='erase' type='radio' name='drawOption' value='Erase'/>
-        <label for='erase'>Erase</label>
-        <button id='clear-canvas'>Clear the canvas!</button>
+        <label for='write' id='write-label'>Write</label>
+        </div>
+
+
+
+        <div id='clear-div'>
+        <button id='clear-canvas' class='canvas-options'>Clear the canvas!</button>
+        </div>
       </div>
     </div>
+  </div>
 
-    <script src='https://code.jquery.com/jquery-2.2.0.min.js'></script>
-    <script src='./build/bundle.js'></script>
-  </body>
+  <script src='https://code.jquery.com/jquery-2.2.0.min.js'></script>
+  <script src='./build/bundle.js'></script>
+</body>
+
 </html>

@@ -5,6 +5,7 @@ import Message from './components/message.jsx'
 import MessageContainer from './components/message_container.jsx'
 import socket from './socket.js'
 
+// Top level React component for the text-chat window
 class App extends React.Component {
   constructor(){
     super();
@@ -31,9 +32,9 @@ class App extends React.Component {
 
   render(){
     return (
-      <div> 
-        <MessageForm submit={this.handleMessageSubmit.bind(this)}/> 
-				<MessageContainer messages={this.state.messages} /> 
+      <div>
+        <MessageForm submit={this.handleMessageSubmit.bind(this)}/>
+				<MessageContainer messages={this.state.messages} />
       </div>
     )
   }
@@ -41,4 +42,3 @@ class App extends React.Component {
 
 
 ReactDOM.render(<App />, document.getElementById('chat-app'));
-
