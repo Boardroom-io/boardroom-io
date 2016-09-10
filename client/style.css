@@ -48,6 +48,10 @@ table {
   box-sizing: border-box;
 }
 
+body {
+  background-color: #DDD;
+}
+
 #container {
   display: inline-block;
   width: 100%;
@@ -57,10 +61,17 @@ table {
   width: 44%;
   display: inline-block;
   margin: 20px 2.5% 0;
+  vertical-align: top;
+  background-color: #EEE;
 }
 
 #right {
   width: 44%;
   display: inline-block;
   margin: 20px 2.5% 0;
+  background-color: #EEE;
+}
+
+#drawMe {
+  background-color: white;
 }
