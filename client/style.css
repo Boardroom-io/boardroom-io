@@ -72,6 +72,7 @@ body {
   height: 500px;
   margin: 10px auto 10px;
   border: 1px solid #444;
+  background-color: white;
 }
 
 video {
@@ -82,11 +83,38 @@ video {
 
 #chat-app {
   width: 500px;
-  height: 165px;
-  margin: 0 auto;
+  height: 135px;
+  margin: 20px auto;
+  overflow: auto;
+  border: 1px solid #444;
+  background-color: white;
 }
 
+#textSubmit {
+  width: 80%;
+  height: 31px;
+  border: 1px solid #444;
+  border-top: none;
+  border-left: none;
+  outline: 0;
+  background-color: #FFF;
+  padding-left: 15px;
+}
 
+#textButton {
+  width: 20%;
+  height: 30px;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #444;
+  background-color: #FFF;
+}
+
+.message {
+  padding: 3px 0 3px 15px;
+  font-size: 13px;
+}
 
 
 #right {
