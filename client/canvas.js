@@ -11,7 +11,7 @@ $(document).ready(() => {
   context.lineJoin = 'round';
   context.lineCap = 'round';
 
-  // State variables
+  // Create state variables
   let x;
   let y;
   let prevX;
@@ -23,11 +23,10 @@ $(document).ready(() => {
   let drawOption;
   let temp;
 
-  /* Event handler for mousedown events */
+  /** Event handler for mousedown events on the canvas */
   function startDraw(e) {
     // Get the bounding rectangle again, in case the user resized the screen
     rect = canvas.getBoundingClientRect();
-    console.log(temp);
 
     mouseDown = true;
     prevX = e.pageX - rect.left;
@@ -40,10 +39,10 @@ $(document).ready(() => {
     }
   }
 
+  /** Event handler for when a user touches the canvas on a touchscreen */
   function startDrawTouch(e) {
     // Get the bounding rectangle again, in case the user resized the screen
     rect = canvas.getBoundingClientRect();
-    temp = e;
     e.preventDefault();
 
     mouseDown = true;
@@ -58,7 +57,7 @@ $(document).ready(() => {
     }
   }
 
-  /* Event handler for mousemove events */
+  /** Event handler for mousemove events */
   function newDraw(e) {
     if (mouseDown) {
       x = e.pageX - rect.left;
@@ -77,6 +76,7 @@ $(document).ready(() => {
     }
   }
 
+  /** Event handler for when the user moves their finger on a touchscreen */
   function newDrawTouch(e) {
     e.preventDefault();
 
@@ -112,10 +112,18 @@ $(document).ready(() => {
     context.stroke();
   }
 
+  /**
+   * Erases a rectangle from the canvas. Called when the user moves their mouse
+   * and the "erase" radio button is selected
+   */
   function eraser(x, y) {
     context.clearRect(x, y, 20, 20);
   }
 
+  /**
+   * Clears all ink currenty showing on the canvas. Called when the
+   * "clear canvas" button is clicked
+   */
   function clearCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
   }
@@ -125,13 +133,16 @@ $(document).ready(() => {
     socket.emit('clear');
   });
 
+  /**
+   * Clears the state variables when the user releases the mouse button
+   */
   function endDraw(e) {
     mouseDown = false;
     x = null;
     y = null;
   }
 
-  // Establish event listeners for canvas mouse events
+  /** Establish event listeners for canvas mouse events */
   canvas.addEventListener('mousedown', startDraw, false);
   canvas.addEventListener('mousemove', newDraw, false);
   canvas.addEventListener('mouseup', endDraw, false);
@@ -143,8 +154,10 @@ $(document).ready(() => {
   canvas.addEventListener('touchend', endDraw, false);
   canvas.addEventListener('touchleave', endDraw, false);
 
-  // Establish event listeners for receiving canvas data from other clients
-  // through the socket connection
+  /**
+   * Establish event listeners for receiving canvas data from other clients
+   * through the socket connection
+   */
   socket.on('other client draw', coords => {
     drawOnCanvas(coords.prevX, coords.prevY, coords.x, coords.y, coords.width, coords.color);
   });
