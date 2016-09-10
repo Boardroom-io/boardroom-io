@@ -1,7 +1,8 @@
 import React from 'react';
-import Message from './components/message.jsx'
+import Message from './message.jsx'
 
 function MessageContainer(props){
+	console.log(props.messages)
   return (
     <div className = "MessageContainer">
 				{
@@ -9,7 +10,7 @@ function MessageContainer(props){
 						return (
 							<Message
 								key={i}
-								text={message.text} 
+								text={message} 
 							/>
 						);
 					})

@@ -8,7 +8,7 @@ function MessageForm (props){
   }
   return (
      <div>
-        <input id="textSubmit" type="text" value="Message" /> 
+        <input id="textSubmit" type="text" placeholder="Message" /> 
         <button type="submit" onClick={textInput}> Submit</button>
      </div>
     )
