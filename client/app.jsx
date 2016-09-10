@@ -7,34 +7,34 @@ import {socket, p2p} from './socket.js'
 
 // Top level React component for the text-chat window
 class App extends React.Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      messages:[]
+      messages: []
     }
-		p2p.on('message', (newMessage) =>{
-			this.handleNewMessage(newMessage);
-		})
+    p2p.on('message', (newMessage) => {
+      this.handleNewMessage(newMessage);
+    })
   }
-	handleMessageSubmit(message)   {
-		var {messages} = this.state;
-		messages.push(message);
-		this.setState({messages});
-		console.log("handleMessageSubmit", message);
-		p2p.emit('message', message);
-	}
+  handleMessageSubmit(message) {
+    var {messages} = this.state;
+    messages.unshift(message);
+    this.setState({ messages });
+    console.log("handleMessageSubmit", message);
+    p2p.emit('message', message);
+  }
 
-	handleNewMessage(newMessage) {
-		var {messages} = this.state;
-		messages.push(newMessage);
-		this.setState({messages});
-	}
+  handleNewMessage(newMessage) {
+    var {messages} = this.state;
+    messages.unshift(newMessage);
+    this.setState({ messages });
+  }
 
-  render(){
+  render() {
     return (
       <div>
-        <MessageForm submit={this.handleMessageSubmit.bind(this)}/>
-				<MessageContainer messages={this.state.messages} />
+        <MessageForm submit={this.handleMessageSubmit.bind(this) }/>
+        <MessageContainer messages={this.state.messages} />
       </div>
     )
   }
