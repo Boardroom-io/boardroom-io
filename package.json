@@ -4,6 +4,7 @@
   "description": "A whiteboard chatroom",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./server/server.js",
     "test": "export NODE_ENV=test && mocha --timeout 20000 tests/",
     "front-end-build": "node_modules/.bin/gulp"
   },
