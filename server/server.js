@@ -21,6 +21,10 @@ io.on('connection', socket => {
   socket.on('clear', () => {
     socket.broadcast.emit('clear all canvas');
   });
+  socket.on('send:message', (message) => {
+    socket.broadcast.emit('new message text', message);
+    console.log("message sent")
+  });
 });
 
 http.listen(3000, () => console.log('listening on *:3000'));

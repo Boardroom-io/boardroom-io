@@ -7,14 +7,14 @@ const notify = require('gulp-notify');
 function handleErrors(){
   notify.onError({
     title: "compile error",
-    message: "<% error.message %>"
+    message: "<%= error.message %>"
   }).apply(this, arguments);
   this.emit('end');
 }
 
 gulp.task('build-client', () =>{
   const bundler = watchify(browserify({
-    entries: ["./client/app.jsx", "./client/canvas.js"],
+    entries: ["./client/app.jsx", "./client/canvas.js", "./client/webrtc.js"],
     debug: true,
     transform: [['babelify', {presets: ['es2015','react']}]]
   }))
