@@ -14,7 +14,7 @@ function handleErrors(){
 
 gulp.task('build-client', () =>{
   const bundler = watchify(browserify({
-    entries: ["./client/app.jsx", "./client/canvas.js"],
+    entries: ["./client/app.jsx", "./client/canvas.js", "./client/webrtc.js"],
     debug: true,
     transform: [['babelify', {presets: ['es2015','react']}]]
   }))
