@@ -180,4 +180,74 @@ $(document).ready(() => {
   p2p.on('clear', () => {
     clearCanvas();
   });
+
+  $('#localVideo').hide();
+  // $('#remoteVideos').change((e) => {
+  //   alert('this is changing');
+  //   let numberOfVideos = $('#remoteVideos video').length;
+
+  //   let numRows = 1;
+  //   let numCols = 2;
+  //   let colWidth = '300px';
+  //   let rowHeight = '300px';
+  //   if (numberOfVideos > 1) {
+  //     numRows = Math.ceil(Math.sqrt(numberOfVideos));
+  //     numCols = numRows;
+  //     colWidth = (600 / numRows).toString();
+  //     colWidth += 'px';
+  //     rowHeight = colWidth;
+  //   }
+  //   $('video').css('width', 'colWidth');
+  //   $('video').height(rowHeight);
+  // });
+
+  $('body').on('DOMNodeInserted', 'video', function (e) {
+    let numberOfVideos = $('#remoteVideos video').length;
+    let numRows = 1;
+    let numCols = 2;
+    let colWidth = '498px';
+    let rowHeight = '498px';
+    if (numberOfVideos > 1) {
+      numRows = Math.ceil(Math.sqrt(numberOfVideos));
+      numCols = numRows;
+      colWidth = (498 / numRows).toString();
+      colWidth += 'px';
+      rowHeight = colWidth;
+    }
+    $('video').height(rowHeight);
+    $('video').width(colWidth);
+  });
+  $('body').on('DOMNodeRemoved', 'video', function (e) {
+    let numberOfVideos = $('#remoteVideos video').length - 1;
+
+    let numRows = 1;
+    let numCols = 2;
+    let colWidth = '498px';
+    let rowHeight = '498px';
+    if (numberOfVideos > 0) {
+      numRows = Math.ceil(Math.sqrt(numberOfVideos));
+      numCols = numRows;
+      colWidth = (498 / numRows).toString();
+      colWidth += 'px';
+      rowHeight = colWidth;
+    }
+    $('video').height(rowHeight);
+    $('video').width(colWidth);
+  });
+
+  $("#textSubmit").keyup(function(event){
+    if(event.keyCode == 13){
+        $("form").submit();
+    }
+});
+$("form").on('submit', function(e){
+    e.preventDefault();
+
+});
+
+
+
+
+
+
 });

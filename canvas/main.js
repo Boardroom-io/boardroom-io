@@ -1,5 +1,20 @@
 $(document).ready(() => {
 
+  $('#hi').on('click', (e) => {
+    //e.preventDefault();
+    alert('button pressed');
+  });
+
+$("#blah").keyup(function(event){
+    if(event.keyCode == 13){
+        $("form").submit();
+    }
+});
+$("form").on('submit', function(e){
+    e.preventDefault();
+    alert('button pressed');
+});
+
   const socket = require('./socket');
 
   function addEventListenersToCanvas() {
