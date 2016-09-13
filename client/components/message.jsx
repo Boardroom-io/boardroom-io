@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Message(props){
+function Message(props) {
   return (
-    <div className = "Message">
+    <div className="Message">
       <div>{props.text}</div>
     </div>
-  )
+  );
 }
 
-module.exports = Message
+module.exports = Message;

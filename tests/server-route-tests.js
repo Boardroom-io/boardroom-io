@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-
 const request = require('supertest');
 const expect = require('chai').expect;
 
@@ -44,7 +43,7 @@ describe('Server routes', function() {
     it('should respond with a status of 404',function(done) {
       request(HOST)
         .get('/hi')
-        .expect(404,done)
+        .expect(404, done);
     });
   });
 

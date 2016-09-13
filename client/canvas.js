@@ -18,7 +18,7 @@ $(document).ready(() => {
   // Create the canvas and set it's properties
   const canvas = document.getElementById('drawMe');
   let rect = canvas.getBoundingClientRect();
-  let context = canvas.getContext('2d');
+  const context = canvas.getContext('2d');
   context.strokeStyle = 'black';
   context.lineWidth = '5';
   context.lineJoin = 'round';
@@ -202,7 +202,7 @@ $(document).ready(() => {
   // });
 
   $('body').on('DOMNodeInserted', 'video', function (e) {
-    let numberOfVideos = $('#remoteVideos video').length;
+    const numberOfVideos = $('#remoteVideos video').length;
     let numRows = 1;
     let numCols = 2;
     let colWidth = '498px';
@@ -218,7 +218,7 @@ $(document).ready(() => {
     $('video').width(colWidth);
   });
   $('body').on('DOMNodeRemoved', 'video', function (e) {
-    let numberOfVideos = $('#remoteVideos video').length - 1;
+    const numberOfVideos = $('#remoteVideos video').length - 1;
 
     let numRows = 1;
     let numCols = 2;
@@ -235,19 +235,12 @@ $(document).ready(() => {
     $('video').width(colWidth);
   });
 
-  $("#textSubmit").keyup(function(event){
-    if(event.keyCode == 13){
-        $("form").submit();
+  $("#textSubmit").keyup(function (event) {
+    if (event.keyCode == 13) {
+      $("form").submit();
     }
-});
-$("form").on('submit', function(e){
+  });
+  $("form").on('submit', function (e) {
     e.preventDefault();
-
-});
-
-
-
-
-
-
+  });
 });

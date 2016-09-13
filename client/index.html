@@ -16,7 +16,6 @@
         </div>
         <div id="chat-app"><!-- Populated by React, see app.jsx --></div>
       </div>
-
       <div id="right">
         <!-- Drawable canvas, see canvas.js -->
         <canvas id="drawMe" width="600" height="600" style="border:1px solid black"></canvas>
@@ -31,29 +30,21 @@
           <option id='medium' value='10'>Medium</option>
           <option id='large' value='15'>Large</option>
         </select>
-
         <div class='radio' id='erase-div'>
         <input id='erase' type='radio' name='drawOption' value='Erase' />
         <label for='erase' id='erase-label'>Erase</label>
         </div>
-
-
         <div class='radio'>
         <input id='write' type='radio' name='drawOption' value='Write' checked="checked" />
         <label for='write' id='write-label'>Write</label>
         </div>
-
-
-
         <div id='clear-div'>
         <button id='clear-canvas' class='canvas-options'>Clear the canvas!</button>
         </div>
       </div>
     </div>
   </div>
-
   <script src='https://code.jquery.com/jquery-2.2.0.min.js'></script>
   <script src='./build/bundle.js'></script>
 </body>
-
 </html>

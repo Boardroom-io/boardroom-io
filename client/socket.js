@@ -12,4 +12,4 @@ p2p.on('ready', () => {
   p2p.usePeerConnection = true;
 });
 
-module.exports = {socket, p2p};
+module.exports = { socket, p2p };
