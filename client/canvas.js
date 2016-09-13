@@ -14,7 +14,6 @@ import {socket, p2p} from './socket';
 // })
 
 $(document).ready(() => {
-
   // Create the canvas and set it's properties
   const canvas = document.getElementById('drawMe');
   let rect = canvas.getBoundingClientRect();
