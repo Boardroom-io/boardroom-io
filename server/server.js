@@ -25,7 +25,7 @@ app.all((req, res, next) => {
 
 
 
-
+app.use(cookieParser());
 mongoose.connect(mongoURI);
 mongoose.connection.once('open', () => {
   console.log('Connected with MongoDB');
@@ -33,7 +33,7 @@ mongoose.connection.once('open', () => {
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser('secretPassword'));
+
 
 
 // This server will be used as a signaling server to establish peer to
@@ -44,24 +44,23 @@ io.on('connection', (socket) => {
   console.log('socket connected');
   
 })
-
-app.use('/element', express.static('../client/element'));
-app.use(express.static(path.join(__dirname, '../client')));
-
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
-});
-// app.get('/chat')
-app.post('/signup', userController.createUser, (req, res) => {
-  console.log('inside signup body ');
-  // res.redirect('/chat')
-  res.write('sweet');
-  res.end();
-});
-// app.post('/login', userController.verifyUser, cookieController.setCookie,  (req, res) => res.redirect('/chat'));
-app.get('/boardroom', (res, req) => {
-  //redirect to boardroom
+io.on('connect_error', (data) => {
+  console.log('error');
+  console.log('error in io on error ', data);
 })
+
+app.use('/element', express.static('../client/public/element'));
+app.use(express.static(path.join(__dirname, '../client/public')));
+
+
+app.get('/', cookieController.checkCookie,  (req, res) => {
+  res.redirect('/boardroom');
+});
+app.post('/login', userController.verifyUser, cookieController.setCookie,  (req, res) => res.redirect('/boardroom'));
+
+
+app.post('/signup', userController.createUser, cookieController.setCookie, (req, res) => res.redirect('/boardroom'));
+
+
 server.listen(3000, () => console.log('listening on *:3000'));
 

@@ -11,6 +11,7 @@ userController.createUser = (req, res, next) => {
       throw err;
     } else {
       console.log('User created!');
+			res.locals.id = user._id
       next();
     }
   });
@@ -27,7 +28,7 @@ userController.verifyUser = (req, res, next) => {
 		//If email is found in database & passwords match, call next(). Otherwise redirect to /signup. 
 		if(u){
 			if(u.password === passwordInput){
-				req.user_id = u._id;
+				res.locals.id = u._id;
 				next();
 			} else {
 				res.redirect('/signup');
