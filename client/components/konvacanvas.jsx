@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Layer, Rect, Stage, Group } from 'react-konva';
+import { Layer, Rect, Stage, Group, Image, Canvas } from 'react-konva';
+import CanvasComponent from './canvas.jsx';
 
 class MyRect extends React.Component {
   constructor(...args) {
@@ -17,12 +18,11 @@ class MyRect extends React.Component {
   }
   render() {
     return (
-      <Rect
-        x={10} y={10} width={600} height={600}
-        fill={this.state.color}
-        shadowBlur={10}
-        onClick={this.handleClick}
-      />
+      <Stage className="drawMe" width={600} height={600}>
+        <Layer>
+          <CanvasComponent />
+        </Layer>  
+      </Stage>
     );
   }
 }
