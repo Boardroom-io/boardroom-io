@@ -17,6 +17,10 @@ const server = https.createServer(credentials, app);
 const io = require('socket.io')(server);
 const p2p = require('socket.io-p2p-server').Server;
 
+app.all((req, res, next) => {
+  console.log('request recieved');
+  next();
+})
 
 
 
@@ -26,6 +30,7 @@ mongoose.connect(mongoURI);
 mongoose.connection.once('open', () => {
   console.log('Connected with MongoDB');
 });
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser('secretPassword'));
