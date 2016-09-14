@@ -180,7 +180,7 @@ $(document).ready(() => {
     clearCanvas();
   });
 
-  $('.localVideo').hide();
+  $('#localVideo').hide();
   // $('#remoteVideos').change((e) => {
   //   alert('this is changing');
   //   let numberOfVideos = $('#remoteVideos video').length;
@@ -200,8 +200,8 @@ $(document).ready(() => {
   //   $('video').height(rowHeight);
   // });
 
-  $('.video-chat').on('DOMNodeInserted', 'video', function (e) {
-    const numberOfVideos = $('.remoteVideos video').length;
+  $('#container').on('DOMNodeInserted', 'video', function (e) {
+    const numberOfVideos = $('#remoteVideos video').length;
     let numRows = 1;
     let numCols = 2;
     let colWidth = '498px';
@@ -213,10 +213,10 @@ $(document).ready(() => {
       colWidth += 'px';
       rowHeight = colWidth;
     }
-    $('.remoteVideos').height(rowHeight);
-    $('.remoteVideos').width(colWidth);
+    $('video').height(rowHeight);
+    $('video').width(colWidth);
   });
-  $('.video-chat').on('DOMNodeRemoved', 'video', function (e) {
+  $('#vcontainer').on('DOMNodeRemoved', 'video', function (e) {
     const numberOfVideos = $('#remoteVideos video').length - 1;
 
     let numRows = 1;
@@ -230,8 +230,8 @@ $(document).ready(() => {
       colWidth += 'px';
       rowHeight = colWidth;
     }
-    $('.remoteVideos').height(rowHeight);
-    $('.remoteVideos').width(colWidth);
+    $('video').height(rowHeight);
+    $('video').width(colWidth);
   });
 
   $("#textSubmit").keyup(function (event) {

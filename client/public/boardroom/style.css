@@ -125,7 +125,7 @@ video {
   border-radius: 3%;
 }
 
-.drawMe {
+#drawMe {
   display: block;
   margin: 15px auto 10px;
   background-color: white;
@@ -145,7 +145,7 @@ video {
   float: left;
 }
 
-/*.radio {
+.radio {
   float: right;
   width: 20%;
   height: 17px;
@@ -154,7 +154,7 @@ video {
   text-align: center;
   border-radius: 3px;
   margin-right: 10px;
-}*/
+}
 
 select {
   margin-left: 10px;
