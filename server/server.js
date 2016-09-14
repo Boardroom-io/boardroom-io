@@ -35,8 +35,12 @@ app.use(cookieParser('secretPassword'));
 // peer connections between clients. This happens automatically,
 // behind the scenes.
 io.use(p2p);
+io.on('connection', (socket) => {
+  console.log('socket connected');
+  
+})
 
-
+app.use('/element', express.static('../client/element'));
 app.use(express.static(path.join(__dirname, '../client')));
 
 
