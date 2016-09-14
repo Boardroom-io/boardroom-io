@@ -8,7 +8,7 @@ function MessageForm(props) {
     document.getElementById('textSubmit').value = '';
   }
   return (
-    <form>
+    <form id="chatSubmit">
       <input id="textSubmit" type="text" placeholder="Message" />
       <button id="textButton" type="submit" onClick={textInput}> Submit</button>
     </form>
