@@ -18,8 +18,8 @@ class MyRect extends React.Component {
     });
   }
   componentWillMount() {
-    this.state.canvas.width = 500;
-    this.state.canvas.height = 500;
+    this.state.canvas.width = 600;
+    this.state.canvas.height = 600;
   }
   componentDidMount() {
     const stage = this.refs.stage.getStage();
@@ -64,7 +64,7 @@ class MyRect extends React.Component {
   }
   render() {
     return (
-      <Stage ref="stage" className="drawMe" width={600} height={600}>
+      <Stage ref="stage" width={600} height={600}>
         <Layer ref="layer">
           <Image
             ref="image"
