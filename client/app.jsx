@@ -36,9 +36,9 @@ class App extends React.Component {
     return (
       <div>
         <div id="left">
-          <div className="video-chat">
-            <video className="localVideo" />
-            <div className="remoteVideos" />
+          <div id="video-chat">
+            <video id="localVideo" />
+            <div id="remoteVideos" />
           </div>
           <div id="chat-app">
             <MessageForm submit={this.handleMessageSubmit.bind(this)} />
