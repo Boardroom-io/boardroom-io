@@ -48,7 +48,12 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 // app.get('/chat')
-app.post('/signup', userController.createUser, (req, res) => res.redirect('/chat'));
+app.post('/signup', userController.createUser, (req, res) => {
+  console.log('inside signup body ');
+  // res.redirect('/chat')
+  res.write('sweet');
+  res.end();
+});
 // app.post('/login', userController.verifyUser, cookieController.setCookie,  (req, res) => res.redirect('/chat'));
 
 server.listen(3000, () => console.log('listening on *:3000'));
