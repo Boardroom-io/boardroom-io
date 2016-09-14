@@ -4,7 +4,6 @@ import { Layer, Rect, Stage, Group } from 'react-konva';
 import MessageForm from './components/message_form.jsx';
 import Message from './components/message.jsx';
 import MessageContainer from './components/message_container.jsx';
-import Canvas from './components/canvas.jsx';
 import MyRect from './components/konvacanvas.jsx';
 import { socket, p2p } from './socket.js';
 
@@ -37,9 +36,9 @@ class App extends React.Component {
     return (
       <div>
         <div id="left">
-          <div id="video-chat">
-            <video id="localVideo" />
-            <div id="remoteVideos" />
+          <div className="video-chat">
+            <video className="localVideo" />
+            <div className="remoteVideos" />
           </div>
           <div id="chat-app">
             <MessageForm submit={this.handleMessageSubmit.bind(this)} />
@@ -47,11 +46,7 @@ class App extends React.Component {
           </div>
         </div>
         <div id="right">
-          <Stage width={600} height={600}>
-            <Layer>
-              <MyRect />
-            </Layer>
-          </Stage>
+          <MyRect />
         </div>
       </div>
     );
