@@ -10,17 +10,17 @@ fileController.createFile = (req, res, next) => {
   MongoClient.connect('mongodb://dana:CS2016@ds029456.mlab.com:29456/boardroomdb', (err, db) => {
     console.log('Connected with MongoDB');
       db.collection('users').findOneAndUpdate({
-        {'email' : emailname},
+        {'email' : 'dana@dana.com'},
         {$push: {files: file}}
       }, (err) => console.log(err));
     
   };
 
-  file.save(function(err){
-    if (err) throw err;
-    console.log('File created!');
-    next();
-  });
+  // file.save(function(err){
+  //   if (err) throw err;
+  //   console.log('File created!');
+  //   next();
+  // });
 };
 
 
