@@ -15,29 +15,25 @@ class App extends React.Component {
       messages: [],
       mode: 'brush',
     };
-    p2p.on('message', (newMessage) => {
-      this.handleNewMessage(newMessage);
-    });
+    this.updateMode = this.updateMode.bind(this);
   }
-  handleMessageSubmit(message) {
-    const { messages } = this.state;
-    messages.unshift(message);
-    this.setState({ messages });
-    console.log('handleMessageSubmit', message);
-    p2p.emit('message', message);
+  compnentDidMount() {
+    this.setState({ mode: 'brush' });
   }
-
-  handleNewMessage(newMessage) {
-    const { messages } = this.state;
-    messages.unshift(newMessage);
-    this.setState({ messages });
+  updateMode() {
+    if (this.state.mode === 'brush') {
+      this.setState({ mode: 'eraser' });
+    }
+    if (this.state.mode === 'eraser') {
+      this.setState({ mode: 'brush' });
+    }
   }
 
   render() {
     return (
       <div>
         <div className="drawMe">
-          <MyRect mode={this.mode} />
+          <MyRect mode={this.state.mode} updateMode={this.updateMode} />
         </div>
       </div>
     );
