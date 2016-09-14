@@ -13,6 +13,7 @@ class App extends React.Component {
     super();
     this.state = {
       messages: [],
+      mode: 'brush',
     };
     p2p.on('message', (newMessage) => {
       this.handleNewMessage(newMessage);
@@ -35,18 +36,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div id="left">
-          <div id="video-chat">
-            <video id="localVideo" />
-            <div id="remoteVideos" />
-          </div>
-          <div id="chat-app">
-            <MessageForm submit={this.handleMessageSubmit.bind(this)} />
-            <MessageContainer messages={this.state.messages} />
-          </div>
-        </div>
-        <div id="right">
-          <MyRect className="drawMe" />
+        <div className="drawMe">
+          <MyRect mode={this.mode} />
         </div>
       </div>
     );
@@ -54,4 +45,4 @@ class App extends React.Component {
 }
 
 
-ReactDOM.render(<App />, document.getElementById('container'));
+ReactDOM.render(<App />, document.getElementById('right'));
