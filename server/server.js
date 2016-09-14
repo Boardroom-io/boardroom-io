@@ -17,6 +17,10 @@ const server = https.createServer(credentials, app);
 const io = require('socket.io')(server);
 const p2p = require('socket.io-p2p-server').Server;
 
+app.all((req, res, next) => {
+  console.log('request recieved');
+  next();
+})
 
 
 
@@ -27,6 +31,7 @@ mongoose.connection.once('open', () => {
   console.log('Connected with MongoDB');
 });
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser('secretPassword'));
 
@@ -35,8 +40,12 @@ app.use(cookieParser('secretPassword'));
 // peer connections between clients. This happens automatically,
 // behind the scenes.
 io.use(p2p);
+io.on('connection', (socket) => {
+  console.log('socket connected');
+  
+})
 
-
+app.use('/element', express.static('../client/element'));
 app.use(express.static(path.join(__dirname, '../client')));
 
 
@@ -44,9 +53,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 // app.get('/chat')
-app.post('/signup', userController.createUser, (req, res) => res.redirect('/chat'));
+app.post('/signup', userController.createUser, (req, res) => {
+  console.log('inside signup body ');
+  // res.redirect('/chat')
+  res.write('sweet');
+  res.end();
+});
 // app.post('/login', userController.verifyUser, cookieController.setCookie,  (req, res) => res.redirect('/chat'));
-
-
+app.get('/boardroom', (res, req) => {
+  //redirect to boardroom
+})
 server.listen(3000, () => console.log('listening on *:3000'));
 
