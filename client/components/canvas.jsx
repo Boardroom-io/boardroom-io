@@ -35,44 +35,6 @@ class CanvasComponent extends React.Component {
     this.state.canvas.width = 500;
     this.state.canvas.height = 500;
   }
-  // componentDidMount() {
-  //   var context = this.state.canvas.getContext('2d');
-  //   context.strokeStyle = "#df4b26";
-  //   context.lineJoin = "round";
-  //   context.lineWidth = 5;
-  //   var isPaint = false;
-  //   var lastPointerPosition;
-  //   var mode = 'brush';
-  //   stage.on('contentMousedown.proto', function() {
-  //     isPaint = true;
-  //     lastPointerPosition = stage.getPointerPosition();
-  //   });
-
-  //   stage.on('contentMouseup.proto', function() {
-  //       isPaint = false;
-  //   });
-  //   stage.on('contentMousemove.proto', function() {
-  //     if (!isPaint) {
-  //       return;
-  //     }
-  //     context.beginPath();
-  //     var localPos = {
-  //       x: lastPointerPosition.x - image.x(),
-  //       y: lastPointerPosition.y - image.y(),
-  //     };
-  //     context.moveTo(localPos.x, localPos.y);
-  //     var pos = stage.getPointerPosition();
-  //     localPos = {
-  //       x: pos.x - image.x(),
-  //       y: pos.y - image.y(),
-  //     };
-  //     context.lineTo(localPos.x, localPos.y);
-  //     context.closePath();
-  //     context.stroke();
-  //     lastPointerPosition = pos;
-  //     layer.draw();
-  //   });
-  // }
   updateCanvas() {
     // const ctx = this.refs.line.getContext('2d');
   }
