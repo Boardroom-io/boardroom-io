@@ -24,7 +24,7 @@ gulp.task('build-client', () => {
     return stream
       .on('error', handleErrors)
       .pipe(source('bundle.js'))
-      .pipe(gulp.dest('./client/build/'));
+      .pipe(gulp.dest('./client/public/build/'));
   }
 
   bundler.on('update', () => {
