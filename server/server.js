@@ -60,7 +60,8 @@ app.post('/signup', userController.createUser, (req, res) => {
   res.end();
 });
 // app.post('/login', userController.verifyUser, cookieController.setCookie,  (req, res) => res.redirect('/chat'));
-
-
+app.get('/boardroom', (res, req) => {
+  //redirect to boardroom
+})
 server.listen(3000, () => console.log('listening on *:3000'));
 

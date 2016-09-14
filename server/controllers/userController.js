@@ -34,6 +34,7 @@ userController.verifyUser = (req, res, next) => {
 			}
 		} else {
 			res.redirect('/signup');
+			
 		}
 	});
 
