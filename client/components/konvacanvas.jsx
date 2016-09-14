@@ -22,7 +22,7 @@ class MyRect extends React.Component {
     const image = this.refs.image;
     const layer = this.refs.layer;
     const context = this.state.canvas.getContext('2d');
-    context.strokeStyle = "#df4b26";
+    context.strokeStyle = "blue";
     context.lineJoin = "round";
     context.lineWidth = 5;
     let isPaint = false;
