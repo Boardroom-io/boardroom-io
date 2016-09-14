@@ -1,31 +1,55 @@
 import React from 'react';
+import { Layer, Rect, Stage, Group, Image, Canvas } from 'react-konva';
 
-function canvas(props) {
-  return (
-    <div>
-      <canvas id="drawMe" style={{ border: '1px solid black' }} />
-      <select id="color">
-        <option id="black" value="black">Black</option>
-        <option id="red" value="red">Red</option>
-        <option id="blue" value="blue">Blue</option>
-        <option id="green" value="green">Green</option>
-      </select>
-      <select id="width" className="canvas-options">
-        <option id="small" value="1">Small</option>
-        <option id="medium" value="10">Medium</option>
-        <option id="large" value="15">Large</option>
-      </select>
-      <div className="radio" id="erase-div">
-        <button id="erase" name="drawOption" value="Erase" >Erase</button>
-      </div>
-      <div className="radio">
-        <button id="write" name="drawOption" value="Write" checked="checked">Write</button>
-      </div>
-      <div id="clear-div">
-        <button id="clear-canvas" className="canvas-options">Clear the canvas!</button>
-      </div>
-    </div>
-  );
+// class CanvasComponent extends React.Component {
+//   componentDidMount() {
+//     this.updateCanvas();
+//   }
+//   componentDidUpdate() {
+//     this.updateCanvas();
+//   }
+//   updateCanvas() {
+//     const ctx = this.refs.canvas.getContext('2d');
+//     ctx.clearRect(0, 0, 300, 300);
+//   }
+//   render() {
+//     return (
+//       <canvas width={300} height={300} />
+//     );
+//   }
+// }
+
+function rect(props) {
+  const { ctx, x, y, width, height } = props;
+  ctx.fillRect(x, y, width, height);
+}
+class CanvasComponent extends React.Component {
+  componentDidMount() {
+    this.updateCanvas();
+  }
+  componentDidUpdate() {
+    this.updateCanvas();
+  }
+  updateCanvas() {
+    const ctx = this.refs.canvas.getContext('2d');
+    ctx.clearRect(0, 0, 300, 300);
+    // draw children “components”
+    rect({ ctx, x: 10, y: 10, width: 50, height: 50 });
+    rect({ ctx, x: 110, y: 110, width: 50, height: 50 });
+  }
+  render() {
+    return (
+      <Group>
+        <Rect
+          ref="rect"
+          width="500"
+          height="500"
+          fill="green"
+          draggable="true"
+          />
+      </Group>
+    );
+  }
 }
 
-module.exports = canvas;
+module.exports = CanvasComponent;
