@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const User = require('./models/userModel');
 const userController = require('./controllers/userController');
 const cookieController = require('./controllers/cookieController');
+const fileController = require('./controllers/fileController');
 const mongoURI = require('./mongourl');
 const privateKey = fs.readFileSync(path.join(__dirname, '/sslcert/file.pem'), 'utf-8');
 const certificate = fs.readFileSync(path.join(__dirname, '/sslcert/file.crt'), 'utf-8');
@@ -61,6 +62,6 @@ app.post('/login', userController.verifyUser, cookieController.setCookie,  (req,
 
 app.post('/signup', userController.createUser, cookieController.setCookie, (req, res) => res.redirect('/boardroom'));
 
-
+app.post('/element', fileController.saveFile);
 server.listen(3000, () => console.log('listening on *:3000'));
 
