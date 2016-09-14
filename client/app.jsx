@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MessageForm from './components/message_form.jsx';
 import Message from './components/message.jsx';
 import MessageContainer from './components/message_container.jsx';
+import Canvas from './components/canvas.jsx';
 import { socket, p2p } from './socket.js';
 
 // Top level React component for the text-chat window
@@ -33,12 +34,23 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <MessageForm submit={this.handleMessageSubmit.bind(this)} />
-        <MessageContainer messages={this.state.messages} />
+        <div id="left">
+          <div id="video-chat">
+            <video id="localVideo" />
+            <div id="remoteVideos" />
+          </div>
+          <div id="chat-app">
+            <MessageForm submit={this.handleMessageSubmit.bind(this)} />
+            <MessageContainer messages={this.state.messages} />
+          </div>
+        </div>
+        <div id="right">
+          <Canvas />
+        </div>
       </div>
     );
   }
 }
 
 
-ReactDOM.render(<App />, document.getElementById('chat-app'));
+ReactDOM.render(<App />, document.getElementById('container'));
