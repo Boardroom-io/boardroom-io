@@ -8,18 +8,19 @@ fileController.createFile = (req, res, next) => {
 
   //find object with correct username in database, create a file schema & push into files array
   MongoClient.connect('mongodb://dana:CS2016@ds029456.mlab.com:29456/boardroomdb', (err, db) => {
-    console.log('Connected with MongoDB Raw - mongodb-raw');
-      db.collection('users').findOne({
-    
+    console.log('Connected with MongoDB');
+      db.collection('users').findOneAndUpdate({
+        {'email' : 'dana@dana.com'},
+        {$push: {files: file}}
       }, (err) => console.log(err));
     
   };
 
-  file.save(function(err){
-    if (err) throw err;
-    console.log('File created!');
-    next();
-  });
+  // file.save(function(err){
+  //   if (err) throw err;
+  //   console.log('File created!');
+  //   next();
+  // });
 };
 
 
