@@ -13,6 +13,7 @@ class App extends React.Component {
     super();
     this.state = {
       messages: [],
+      mode: 'brush',
     };
     p2p.on('message', (newMessage) => {
       this.handleNewMessage(newMessage);
@@ -36,7 +37,7 @@ class App extends React.Component {
     return (
       <div>
         <div className="drawMe">
-          <MyRect />
+          <MyRect mode={this.mode} />
         </div>
       </div>
     );
