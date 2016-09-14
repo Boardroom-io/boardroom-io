@@ -49,8 +49,8 @@ io.on('connect_error', (data) => {
   console.log('error in io on error ', data);
 })
 
-app.use('/element', express.static('../client/element'));
-app.use(express.static(path.join(__dirname, '../client')));
+app.use('/element', express.static('../client/public/element'));
+app.use(express.static(path.join(__dirname, '../client/public')));
 
 
 app.get('/', cookieController.checkCookie,  (req, res) => {
