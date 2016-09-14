@@ -46,7 +46,7 @@ class App extends React.Component {
           </div>
         </div>
         <div id="right">
-          <MyRect />
+          <MyRect className="drawMe" />
         </div>
       </div>
     );
