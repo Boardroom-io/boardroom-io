@@ -47,4 +47,6 @@ app.get('/', (req, res) => {
 app.post('/signup', userController.createUser, (req, res) => res.redirect('/chat'));
 // app.post('/login', userController.verifyUser, cookieController.setCookie,  (req, res) => res.redirect('/chat'));
 
+
 server.listen(3000, () => console.log('listening on *:3000'));
+
