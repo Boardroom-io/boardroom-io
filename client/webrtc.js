@@ -6,7 +6,7 @@ const webrtc = new SimpleWebRTC({
   // the id/element dom element that will hold remote videos
   remoteVideosEl: 'remoteVideos',
   // immediately ask for camera access
-  autoRequestMedia: true
+  autoRequestMedia: true,
 });
 
 // we have to wait until it's ready

@@ -1,44 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MessageForm from './components/message_form.jsx'
-import Message from './components/message.jsx'
-import MessageContainer from './components/message_container.jsx'
-import {socket, p2p} from './socket.js'
+import { Layer, Rect, Stage, Group } from 'react-konva';
+import MessageForm from './components/message_form.jsx';
+import Message from './components/message.jsx';
+import MessageContainer from './components/message_container.jsx';
+import MyRect from './components/konvacanvas.jsx';
+import { socket, p2p } from './socket.js';
 
 // Top level React component for the text-chat window
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      messages: []
+      messages: [],
+      mode: 'brush',
+    };
+    this.updateMode = this.updateMode.bind(this);
+  }
+  compnentDidMount() {
+    this.setState({ mode: 'brush' });
+  }
+  updateMode() {
+    if (this.state.mode === 'brush') {
+      this.setState({ mode: 'eraser' });
     }
-    p2p.on('message', (newMessage) => {
-      this.handleNewMessage(newMessage);
-    })
-  }
-  handleMessageSubmit(message) {
-    var {messages} = this.state;
-    messages.unshift(message);
-    this.setState({ messages });
-    console.log("handleMessageSubmit", message);
-    p2p.emit('message', message);
-  }
-
-  handleNewMessage(newMessage) {
-    var {messages} = this.state;
-    messages.unshift(newMessage);
-    this.setState({ messages });
+    if (this.state.mode === 'eraser') {
+      this.setState({ mode: 'brush' });
+    }
   }
 
   render() {
     return (
       <div>
-        <MessageForm submit={this.handleMessageSubmit.bind(this) }/>
-        <MessageContainer messages={this.state.messages} />
+        <div className="drawMe">
+          <MyRect mode={this.state.mode} updateMode={this.updateMode} />
+        </div>
       </div>
-    )
+    );
   }
 }
 
 
-ReactDOM.render(<App />, document.getElementById('chat-app'));
+ReactDOM.render(<App />, document.getElementById('right'));

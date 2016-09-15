@@ -1,10 +1,9 @@
 import React from 'react';
-import Message from './message.jsx'
+import Message from './message.jsx';
 
 function MessageContainer(props) {
-  console.log(props.messages)
   return (
-    <div className = "MessageContainer">
+    <div className="MessageContainer">
       {
         props.messages.map((message, i) => {
           return (
@@ -16,8 +15,7 @@ function MessageContainer(props) {
         })
       }
     </div>
-  )
-
+  );
 }
 
-module.exports = MessageContainer
+module.exports = MessageContainer;

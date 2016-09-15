@@ -14,16 +14,14 @@ import {socket, p2p} from './socket';
 // })
 
 $(document).ready(() => {
-
   // Create the canvas and set it's properties
   const canvas = document.getElementById('drawMe');
   let rect = canvas.getBoundingClientRect();
-  let context = canvas.getContext('2d');
+  const context = canvas.getContext('2d');
   context.strokeStyle = 'black';
-  context.lineWidth = '5';
+  context.lineWidth = '1';
   context.lineJoin = 'round';
   context.lineCap = 'round';
-
   // Create state variables
   let x;
   let y;
@@ -42,8 +40,8 @@ $(document).ready(() => {
     rect = canvas.getBoundingClientRect();
 
     mouseDown = true;
-    prevX = e.pageX - rect.left;
-    prevY = e.pageY - rect.top;
+    prevX = ((e.clientX - rect.left) / (rect.right - rect.left)) * canvas.width;
+    prevY = ((e.clientY - rect.top) / (rect.bottom - rect.top)) * canvas.height;
     drawOption = $('input[name=drawOption]:checked').val();
     if (drawOption === 'Write') {
       erase = false;
@@ -52,29 +50,31 @@ $(document).ready(() => {
     }
   }
 
-  /** Event handler for when a user touches the canvas on a touchscreen */
-  function startDrawTouch(e) {
-    // Get the bounding rectangle again, in case the user resized the screen
-    rect = canvas.getBoundingClientRect();
-    e.preventDefault();
+  // /** Event handler for when a user touches the canvas on a touchscreen */
+  // function startDrawTouch(e) {
+  //   // Get the bounding rectangle again, in case the user resized the screen
+  //   rect = canvas.getBoundingClientRect();
+  //   e.preventDefault();
 
-    mouseDown = true;
-    prevX = e.targetTouches[0].pageX - rect.left;
-    prevY = e.targetTouches[0].pageY - rect.top;
+  //   mouseDown = true;
+  //   prevX = e.targetTouches[0].pageX - rect.left;
+  //   prevY = e.targetTouches[0].pageY - rect.top;
 
-    drawOption = $('input[name=drawOption]:checked').val();
-    if (drawOption === 'Write') {
-      erase = false;
-    } else if (drawOption === 'Erase') {
-      erase = true;
-    }
-  }
+  //   drawOption = $('input[name=drawOption]:checked').val();
+  //   if (drawOption === 'Write') {
+  //     erase = false;
+  //   } else if (drawOption === 'Erase') {
+  //     erase = true;
+  //   }
+  // }
 
   /** Event handler for mousemove events */
   function newDraw(e) {
     if (mouseDown) {
-      x = e.pageX - rect.left;
-      y = e.pageY - rect.top;
+      x = ((e.clientX - rect.left) / (rect.right - rect.left)) * canvas.width;
+      y = ((e.clientY - rect.top) / (rect.bottom - rect.top)) * canvas.height;
+      console.log('x rect.left pagex', x, rect.left, e.pageX)
+      console.log('y rect.top pagey',y,rect.top,e.pageY)
       color = $('#color').val();
       width = $('#width').val();
       if (erase) {
@@ -89,27 +89,27 @@ $(document).ready(() => {
     }
   }
 
-  /** Event handler for when the user moves their finger on a touchscreen */
-  function newDrawTouch(e) {
-    e.preventDefault();
+  // /** Event handler for when the user moves their finger on a touchscreen */
+  // function newDrawTouch(e) {
+  //   e.preventDefault();
 
-    if (mouseDown) {
-      x = e.targetTouches[0].pageX - rect.left;
-      y = e.targetTouches[0].pageY - rect.top;
+  //   if (mouseDown) {
+  //     x = e.targetTouches[0].pageX - rect.left;
+  //     y = e.targetTouches[0].pageY - rect.top;
 
-      color = $('#color').val();
-      width = $('#width').val();
-      if (erase) {
-        eraser(x, y, width);
-        socket.emit('erase', { x, y });
-      } else {
-        drawOnCanvas(prevX, prevY, x, y, width, color);
-        p2p.emit('draw', { prevX, prevY, x, y, width, color });
-      }
-      prevX = x;
-      prevY = y;
-    }
-  }
+  //     color = $('#color').val();
+  //     width = $('#width').val();
+  //     if (erase) {
+  //       eraser(x, y, width);
+  //       socket.emit('erase', { x, y });
+  //     } else {
+  //       drawOnCanvas(prevX, prevY, x, y, width, color);
+  //       p2p.emit('draw', { prevX, prevY, x, y, width, color });
+  //     }
+  //     prevX = x;
+  //     prevY = y;
+  //   }
+  // }
 
   /**
    * Draws a stroke on the canvas from coordinates (prevX, prevY) to
@@ -155,18 +155,17 @@ $(document).ready(() => {
     y = null;
   }
 
-  /** Establish event listeners for canvas mouse events */
-  canvas.addEventListener('mousedown', startDraw, false);
-  canvas.addEventListener('mousemove', newDraw, false);
-  canvas.addEventListener('mouseup', endDraw, false);
-  canvas.addEventListener('mouseleave', endDraw, false);
+    /** Establish event listeners for canvas mouse events */
+    canvas.addEventListener('mousedown', startDraw, false);
+    canvas.addEventListener('mousemove', newDraw, false);
+    canvas.addEventListener('mouseup', endDraw, false);
+    canvas.addEventListener('mouseleave', endDraw, false);
 
-  // FIXME: Figure out how to make canvas work with touchscreens
-  canvas.addEventListener('touchstart', startDrawTouch, false);
-  canvas.addEventListener('touchmove', newDrawTouch, true);
-  canvas.addEventListener('touchend', endDraw, false);
-  canvas.addEventListener('touchleave', endDraw, false);
-
+    // FIXME: Figure out how to make canvas work with touchscreens
+    canvas.addEventListener('touchstart', startDrawTouch, false);
+    canvas.addEventListener('touchmove', newDrawTouch, true);
+    canvas.addEventListener('touchend', endDraw, false);
+    canvas.addEventListener('touchleave', endDraw, false);
   /**
    * Establish event listeners for receiving canvas data from other clients
    * through the peer to peer connection
@@ -201,8 +200,8 @@ $(document).ready(() => {
   //   $('video').height(rowHeight);
   // });
 
-  $('body').on('DOMNodeInserted', 'video', function (e) {
-    let numberOfVideos = $('#remoteVideos video').length;
+  $('#container').on('DOMNodeInserted', 'video', function (e) {
+    const numberOfVideos = $('#remoteVideos video').length;
     let numRows = 1;
     let numCols = 2;
     let colWidth = '498px';
@@ -217,8 +216,8 @@ $(document).ready(() => {
     $('video').height(rowHeight);
     $('video').width(colWidth);
   });
-  $('body').on('DOMNodeRemoved', 'video', function (e) {
-    let numberOfVideos = $('#remoteVideos video').length - 1;
+  $('#vcontainer').on('DOMNodeRemoved', 'video', function (e) {
+    const numberOfVideos = $('#remoteVideos video').length - 1;
 
     let numRows = 1;
     let numCols = 2;
@@ -235,19 +234,12 @@ $(document).ready(() => {
     $('video').width(colWidth);
   });
 
-  $("#textSubmit").keyup(function(event){
-    if(event.keyCode == 13){
-        $("form").submit();
+  $("#textSubmit").keyup(function (event) {
+    if (event.keyCode == 13) {
+      $("form").submit();
     }
-});
-$("form").on('submit', function(e){
+  });
+  $("#chatSubmit").on('submit', function (e) {
     e.preventDefault();
-
-});
-
-
-
-
-
-
+  });
 });
