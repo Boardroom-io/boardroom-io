@@ -62,6 +62,6 @@ app.post('/login', userController.verifyUser, cookieController.setCookie,  (req,
 
 app.post('/signup', userController.createUser, cookieController.setCookie, (req, res) => res.redirect('/boardroom'));
 
-app.post('/element', fileController.saveFile);
+app.post('/element', fileController.createFile);
 server.listen(3000, () => console.log('listening on *:3000'));
 

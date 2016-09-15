@@ -67,7 +67,8 @@ class MyRect extends React.Component {
   save() {
     const stage = this.refs.stage.getStage();
     let saved = stage.toJSON();
-    $.post('/element', saved);
+    let data = {"fileJSON": saved, "fileName": 'somename'}
+    $.post('/element', data);
   }
   render() {
     return (

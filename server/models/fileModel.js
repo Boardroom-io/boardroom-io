@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 
 const fileSchema = new Schema({
-  fileName: { type: String, required: true, unique: true },
+  fileName: { type: String, required: true},
   fileJSON: { type: String, required: true } 
 });
 

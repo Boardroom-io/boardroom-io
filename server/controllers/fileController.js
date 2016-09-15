@@ -1,9 +1,11 @@
 const File = require('./../models/fileModel');
 const MongoClient = require('mongodb').MongoClient;
+const User = require('./../models/userModel')
 
 const fileController = {};
 
 fileController.createFile = (req, res) => {
+  console.log(req.body);
   const file = new File(req.body);
 
   //find object with correct username in database, create a file schema & push into files array
@@ -15,7 +17,7 @@ fileController.createFile = (req, res) => {
       res.send('file creation failed')
     } else {
       console.log('File created!');
-      io.broadcast('element', file);
+      // io.broadcast('element', file);
       res.status(200).send('ok');
     }
   });
