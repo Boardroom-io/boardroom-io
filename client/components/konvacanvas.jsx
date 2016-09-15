@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Layer, Rect, Stage, Group, Image } from 'react-konva';
+import { Layer, Rect, Stage, Group, Image, Line } from 'react-konva';
 import CanvasComponent from './canvas.jsx';
 
 class MyRect extends React.Component {
@@ -9,6 +9,7 @@ class MyRect extends React.Component {
     this.state = {
       color: 'green',
       canvas: document.createElement('canvas'),
+      points: [],
     };
     this.save = this.save.bind(this);
   }
@@ -16,13 +17,21 @@ class MyRect extends React.Component {
     this.state.canvas.width = 600;
     this.state.canvas.height = 600;
   }
-  componentDidUpdate() {
+  componentDidMount() {
     const stage = this.refs.stage.getStage();
+    // let newLayer = this.state.addLayer;
+    // stage.add(newLayer);
+  }
+  componentDidUpdate() {
+    let points = [];
+    const stage = this.refs.stage.getStage();
+    let newLayer = Konva.Node.create(this.state.addLayer);
+    stage.add(newLayer);
     stage.draw();
     const image = this.refs.image;
     const layer = this.refs.layer;
     const context = this.state.canvas.getContext('2d');
-    context.strokeStyle = "#df4b26";
+    context.strokeStyle = "blue";
     context.lineJoin = "round";
     context.lineWidth = 5;
     let isPaint = false;
@@ -52,6 +61,8 @@ class MyRect extends React.Component {
         y: lastPointerPosition.y - image.y(),
       };
       context.moveTo(localPos.x, localPos.y);
+      points.push(localPos.x, localPos.y);
+      this.setState({ points: points });
       let pos = stage.getPointerPosition();
       localPos = {
         x: pos.x - image.x(),
@@ -62,12 +73,15 @@ class MyRect extends React.Component {
       context.stroke();
       lastPointerPosition = pos;
       layer.draw();
+      console.log(points);
     });
   }
   save() {
-    const stage = this.refs.stage.getStage();
-    let saved = stage.toJSON();
-    $.post('/element', saved);
+    const layer = this.refs.layer;
+    let saved = layer.toJSON();
+    console.log(saved);
+    this.setState({ color: 'blue' });
+    // $.post('/element', saved);
   }
   render() {
     return (
@@ -76,11 +90,12 @@ class MyRect extends React.Component {
           <Layer ref="layer">
             <Image
               ref="image"
-              image={this.state.canvas}
-              x={0}
-              y={0}
-              stroke="green"
-              shadowBlur={5}
+              
+            />
+            <Line
+              ref="line"
+              points={this.state.points}
+              stroke="blue"
             />
           </Layer>
         </Stage>
@@ -93,3 +108,11 @@ class MyRect extends React.Component {
 
 module.exports = MyRect;
 
+            // <Image
+            //   ref="image"
+            //   image={this.state.canvas}
+            //   x={0}
+            //   y={0}
+            //   stroke="green"
+            //   shadowBlur={5}
+            // />
